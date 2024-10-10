@@ -5,6 +5,7 @@ import com.userauth.User_Authentication.model.Usermodel;
 import com.userauth.User_Authentication.service.Userservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,4 +23,10 @@ public class Usercontroller {
     public ResponseEntity<?> login(@RequestParam String name, @RequestParam String password){
         return ResponseEntity.ok(userservice.login(name,password));
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/get")
+    public ResponseEntity<?> getuser(){
+        return ResponseEntity.ok(userservice.getuser());
+    }
+
 }
